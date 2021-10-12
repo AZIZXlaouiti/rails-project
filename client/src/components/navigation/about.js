@@ -15,15 +15,8 @@ const About = ({show}) => {
     }
     return show ?
     
-//   this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1)
-//   let value = (this.value/parseInt(this.max))*100
-//   var children = this.parentNode.childNodes[1].childNodes;
-//   children[1].style.width=value+'%';
-//   children[5].style.left=value+'%';
-//   children[7].style.left=value+'%';children[11].style.left=value+'%';
-//   children[11].childNodes[1].innerHTML=this.value;
+
       
-       <header>
            
            <form className='nav'>
             <h5>Filter by</h5>
@@ -82,15 +75,16 @@ const About = ({show}) => {
                 <h5>CHARACTERISTICS</h5>
                 <p>Gentle, playful</p>
                 </div>
-                <div>
+             
+                    
                 <h5>NEEDS</h5>
                 <p>High — requires daily walks</p>
-                </div>
+               
                 
 
 
             </form>
-       </header>
+       
     : null
 }
 
