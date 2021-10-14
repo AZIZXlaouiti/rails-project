@@ -4,6 +4,5 @@ class CatSerializer < ActiveModel::Serializer
   :needs ,
   :location ,
   :characteristic,
-  :sex
-  # belongs_to :pet  
+  :gender
 end

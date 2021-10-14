@@ -10,13 +10,11 @@ import Session from "./components/sessions/Session"
 import NewPet from "./components/pets/NewPet";
 function App() {
   
-  const [clicked, setClicked ] = useState(false)
+  
   const [ currentUser, setCurrentUser ] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  const handleClick = ()=>{
-    setClicked(!clicked)
-  }
+  
   const handleCurrentUser = (user) => {
     if(user.name) {
       setCurrentUser(user);
@@ -42,7 +40,7 @@ function App() {
           <Navbar loggedIn={loggedIn} logoutCurrentUser={logoutCurrentUser} />
       
         <Switch>
-          <Route exact path="/" component={ Home } />
+          <Route exact path="/" render ={props => <Home loggedIn={loggedIn}/>} />
           <Route exact path="/new" component={ NewPet } />
           <Route exact path="/me" render ={ props =>  <Profile {...props} currentUser = {currentUser} loading={loading} setLoading={setLoading}/> } />
           <Route exact path="/signup" render ={ props =>  <Session {...props} handleCurrentUser = { handleCurrentUser }/> } />

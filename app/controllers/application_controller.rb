@@ -8,6 +8,6 @@ class ApplicationController < ActionController::API
     User.find_by_id(session[:user_id])
   end
   def find_pet 
-    @pet = Pet.find(params[:pet_id])
+      @user = User.find_by_id(params[:user_id])
   end
 end

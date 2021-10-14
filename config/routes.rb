@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
 
+ 
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   resources :users do 
-    resources :pets , only:[:index] 
+    resources :dogs  
+    resources :cats  
     
   end
-  resources :pets , only:[:index] do
-    resources :dogs , except: [:update]
-    resources :cats , except: [:update]
-
-  end
+  get '/users/:user_id/pets' , to: 'users#get_all_pets'
+  get '/user/followers' , to: 'users#get_followers'
+  
 
   delete '/logout', to: 'sessions#destroy'
   post'/login' , to: 'sessions#create'

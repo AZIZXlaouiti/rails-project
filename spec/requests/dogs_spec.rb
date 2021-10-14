@@ -1,30 +1,30 @@
 require 'rails_helper'
 
-RSpec.describe "Cats", type: :request do
+RSpec.describe "Dogs", type: :request do
   describe "GET /index" do
     it "returns http success" do
-      get "/cats/index"
+      get "/dogs/index"
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /show" do
     it "returns http success" do
-      get "/cats/show"
+      get "/dogs/show"
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /destroy" do
     it "returns http success" do
-      get "/cats/destroy"
+      get "/dogs/destroy"
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /update" do
     it "returns http success" do
-      get "/cats/update"
+      get "/dogs/update"
       expect(response).to have_http_status(:success)
     end
   end

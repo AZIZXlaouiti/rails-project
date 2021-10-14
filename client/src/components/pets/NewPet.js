@@ -1,9 +1,19 @@
 import React from 'react'
-
+import { useState } from 'react'
 const NewPet = () => {
+  
     return (
         <>
-        <h1>add profile</h1>
+        <h1>please choose </h1>
+        <label htmlFor='cat'> cat 
+        <input type='radio' id='dog' name="radio" />
+        </label>
+        <label htmlFor='dog'> dog 
+        <input type='radio' id='cat' name="radio"/>
+        </label>
+
+        
+
       <form >
         <div>
           <label htmlFor="title">Name : </label>

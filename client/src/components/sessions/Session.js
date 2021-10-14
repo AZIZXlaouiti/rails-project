@@ -21,7 +21,6 @@ const Session = ({match,handleCurrentUser}) => {
             createUserAccount(state,handleCurrentUser)
         }else {
             let check = await login(state,handleCurrentUser)
-            console.log('check',check.ok)
             if (check.ok){
                 history.push('/me')
             }

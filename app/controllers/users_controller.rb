@@ -25,7 +25,22 @@ class UsersController < ApplicationController
        end
     end
     def index 
-        render json: User.all
+        render json: User.all.to_json(only: [:id, :name])
+    end
+
+    def get_all_pets
+        find_pet 
+        if @user 
+            render json: @user ,status: :ok
+        end
+    end
+    def get_followers
+        if logged_in?
+            @followers = User.all.select{|user| user.id != session[:user_id]}
+            render json: @followers ,status: :ok 
+        else  
+            render json: User.all , status: :ok     
+        end
     end
 
     private 
