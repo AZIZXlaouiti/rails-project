@@ -20,7 +20,7 @@ function App() {
       setLoggedIn(true);
       setLoading(false);
       alert(`welcome ${user.name} `)
-     
+      
     }
   }
   const logoutCurrentUser = ()=>{

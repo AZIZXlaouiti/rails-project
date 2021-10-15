@@ -7,7 +7,7 @@ const Home = ({loggedIn}) => {
       .then(setFollower)
     },[loggedIn])
 
-   
+   console.log('followers',follower)
     return (
         <>
             <h1 >
@@ -15,8 +15,23 @@ const Home = ({loggedIn}) => {
              WELCOME TO PET APP  
             </h1>
             <p>connect with pet's owners </p>
-       {/* <p>{follower.map((e)=><ul><h3>--{e.name}--<button>Edit</button></h3><li>{`breed : ${e.breed}`}</li><li>{`needs : ${e.needs}`}</li><li>{`gender : ${e.gender}`}</li></ul>)}</p> */}
-           <p>{follower.map((e)=><p>{e.name}</p>)}</p>
+           {/* <div>{follower.map((e)=><p key={e.id}>{e.name}</p>)}</div> */}
+       {follower.map((e)=>
+       <>
+        <p key={e.id}>------OWNER------{e.name}--------------</p>
+        <>{e.pets.map((e)=><ul key={e.id}>
+           <h2>{`--${e.name}--`}</h2>
+           
+           <li className='font-bold'>Breed : { e.breed}</li>
+           <li className='font-bold'>characteristic : {e.characteristic}</li>
+           <li>needs : {e.needs}</li>
+           <li>type : {e.pet_type}</li>
+          <li>gender : {e.gender}</li>
+        </ul>)}</>
+        </>
+       )}
+       
+
        </>
     )
 }

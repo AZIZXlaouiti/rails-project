@@ -2,34 +2,42 @@ import React, { useEffect, useState } from 'react'
 const Profile = ({currentUser , setLoading, loading ,setCurrentUser}) => {
   
    console.log(currentUser,'currentUser')
-   const handleClick = (id,user_id,type) =>{
+  
+   
+   const handleClick = async(id) =>{
       const option = {
          method: "DELETE",
        }
-        fetch(`/users/${user_id}/${type}s/${id}`,option)
-        .then(resp=>resp.json())
-        .then(data => console.log(data))
-        .then(()=>setLoading(true))
+        const resp = await fetch(`/users/${currentUser.id}/pets/${id}`,option)
+        const data = resp.json()
+        if (resp.ok){
+           setLoading(false)
+           const filtered = currentUser.pets.filter((e)=>e.id !==id)
+           setCurrentUser({
+             name:currentUser.name,
+             id:currentUser.id,  
+             pets:filtered})
+        
+        }
+       else {
+            alert(data.errors)
+         }
+        
 
    }
-   useEffect(()=>{
-      fetch(`/users/${currentUser.id}/pets`)
-      .then(resp=>resp.json())
-      .then(setCurrentUser)
-      .then(setLoading(false))
-   },[loading])
+  
    
+
     return loading ?
       
        <div>loading ... </div>
         :  <div >
         <h1> user Profile</h1>
-       <p > UserName  = {currentUser.name}</p>
+       <p> UserName  = {currentUser.name}</p>
+       <button>filter by </button>
        <h1>--pets--</h1>
-       <div>{currentUser.cats.map((e)=><ul><h3>--{e.name}--<button onClick={()=>handleClick(e.id,currentUser.id,'cat')}>X</button></h3><li>{`breed : ${e.breed}`}</li><li>{`needs : ${e.needs}`}</li><li>{`gender : ${e.gender}`}</li></ul>)}</div>
-        
-        <div>{currentUser.dogs.map((e)=><ul><h3>--{e.name}--<button onClick={()=>handleClick(e.id,currentUser.id,'dog')}>X</button></h3><li>{`breed : ${e.breed}`}</li><li>{`needs : ${e.needs}`}</li><li>{`gender : ${e.gender}`}</li></ul>)}</div>
-
+       {currentUser.pets.map((e)=><ul key={e.id}><h2>{`--${e.name}--`}<button onClick={()=>handleClick(e.id)}>X</button><button>Edit</button></h2><li className='font-bold'>Breed : { e.breed}</li ><li className='font-bold'>characteristic : {e.characteristic}</li><li>needs : {e.needs}</li><li>type : {e.pet_type}</li><li>gender : {e.gender}</li></ul>)}
+      
        </div>
 
 }

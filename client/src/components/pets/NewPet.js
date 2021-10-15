@@ -4,14 +4,13 @@ const NewPet = ({currentUser}) => {
      const [form ,  setForm ] = useState({
       name:'',
       breed:'',
-      location:'',
       needs :'',
       gender :'',
-      type :'',
+      pet_type :'',
       characteristic:''
      })
      const handleChange = (e)=>{
-       if (e.target.name === 'type'){
+       if (e.target.name === 'pet_type'){
 
          setForm({
            ...form,
@@ -36,7 +35,7 @@ const NewPet = ({currentUser}) => {
         body: JSON.stringify(form),
         withCredentials: true
       }
-       fetch(`/users/${currentUser.id}/${form.type}s`,option)
+       fetch(`/users/${currentUser.id}/pets`,option)
        .then(resp=>resp.json())
        .then(data => console.log(data))
      }
@@ -45,10 +44,10 @@ const NewPet = ({currentUser}) => {
         <>
         <h3>please choose </h3>
         <label htmlFor='dog'> dog 
-        <input type='radio' id='dog' name="type" onChange={handleChange}/>
+        <input type='radio' id='dog' name="pet_type" onChange={handleChange}/>
         </label>
         <label htmlFor='cat'> cat 
-        <input type='radio' id='cat' name="type" onChange={handleChange}/>
+        <input type='radio' id='cat' name="pet_type" onChange={handleChange}/>
         </label>
 
       
@@ -58,10 +57,7 @@ const NewPet = ({currentUser}) => {
           <label htmlFor="name">Name : </label>
           <input type="text" id="name" name="name" value={form.value} onChange={handleChange} required/>
         </div>
-        <div>
-          <label htmlFor="location">location : </label>
-          <input type="number" id="location" name="location" value={form.value} onChange={handleChange} required />
-        </div>
+      
         <div>
           <label htmlFor="length"> needs :</label>
           <input type="text" id="length" name="needs" value={form.value} onChange={handleChange}  required/>
@@ -91,9 +87,10 @@ const NewPet = ({currentUser}) => {
         }
         </select>
                  
-        <div class="relative" required>
+        <div  required>
              <label htmlFor="gender">choose gender:</label>        
             <select id='gender' name='gender' value={form.gender}  onChange={handleChange} required>
+               <option value="">None</option>
                 <option value="male">male</option>
                 <option value="female">female</option>
             
