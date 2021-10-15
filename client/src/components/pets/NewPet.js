@@ -1,13 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
-const NewPet = () => {
+const NewPet = ({currentUser}) => {
      const [form ,  setForm ] = useState({
       name:'',
       breed:'',
       location:'',
       needs :'',
       gender :'',
-      type :''
+      type :'',
+      characteristic:''
      })
      const handleChange = (e)=>{
        if (e.target.name === 'type'){
@@ -24,10 +25,25 @@ const NewPet = () => {
           })
         }
      }
+     const handleSubmit =(e)=>{
+       e.preventDefault()
+       const option = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(form),
+        withCredentials: true
+      }
+       fetch(`/users/${currentUser.id}/${form.type}s`,option)
+       .then(resp=>resp.json())
+       .then(data => console.log(data))
+     }
      console.log('form',form)
     return (
         <>
-        <h1>please choose </h1>
+        <h3>please choose </h3>
         <label htmlFor='dog'> dog 
         <input type='radio' id='dog' name="type" onChange={handleChange}/>
         </label>
@@ -35,9 +51,9 @@ const NewPet = () => {
         <input type='radio' id='cat' name="type" onChange={handleChange}/>
         </label>
 
-        
+      
 
-      <form >
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name : </label>
           <input type="text" id="name" name="name" value={form.value} onChange={handleChange} required/>
@@ -51,7 +67,7 @@ const NewPet = () => {
           <input type="text" id="length" name="needs" value={form.value} onChange={handleChange}  required/>
         </div>
         <label htmlFor="breed">Choose a breed:</label>
-        <select id='breed' required>
+        <select id='breed' name="breed" value={form.breed}  onChange={handleChange} required>
         { form.type === 'cat'?
           <>
                 <option value="">None</option> 
@@ -77,9 +93,9 @@ const NewPet = () => {
                  
         <div class="relative" required>
              <label htmlFor="gender">choose gender:</label>        
-            <select id='gender'>
-                <option>male</option>
-                <option>female</option>
+            <select id='gender' name='gender' value={form.gender}  onChange={handleChange} required>
+                <option value="male">male</option>
+                <option value="female">female</option>
             
             </select>
         </div>

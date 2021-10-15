@@ -1,4 +1,6 @@
 class DogsController < ApplicationController
+  before_action    :find_pet , excpet: [:index]
+
     def index
       #users/user_id/dogs
       if params[:user_id]
@@ -14,7 +16,6 @@ class DogsController < ApplicationController
 
 
   def show
-    find_pet
     if @user 
       @dog = @user.dogs.find_by_id(params[:id])
       if @dog 
@@ -27,18 +28,16 @@ class DogsController < ApplicationController
   end
 
   def destroy
-    find_pet
-    @dog = @user.dogs.find_by_id(params[:id])
-    if @dog 
-      @user.dogs.destroy
-      render json: ['dog sucessfuly deleted'], status: :ok
-    else 
-      render json: {errors:"could not find dog"} , status: :bad_request
-    end
+    @dog= @user.dogs.find_by_id(params[:id])
+     if @dog
+       @dog.destroy
+       render json: ['dog sucessfuly deleted'], status: :ok
+     else 
+       render json: {errors:"could not find cat"} , status: :bad_request
+     end
   end
 
   def update
-    find_pet
     @dog = @user.dogs.find_by_id(params[:id])
     if @dog 
         if @dog.update(dog_params)
@@ -51,13 +50,22 @@ class DogsController < ApplicationController
         
     end
   end
-
+  def create 
+    if @user 
+       @pet = @user.dogs.create(dog_params)
+       if @pet.save 
+         render json: @pet , status: :ok
+       end
+    else 
+      render json: {errors:['user not found']} , status: :unprocessable_entity
+    end
+  end
 
 
   private 
   def dog_params 
     params.permit(
-      :id,
+
       :name ,
       :breed ,
       :needs ,

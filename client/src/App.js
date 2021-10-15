@@ -3,7 +3,6 @@ import { useState , useEffect} from "react";
 import { getCurrentUser } from "./components/auth/auth";
 import Home from './components/static/Home'
 import Profile from "./components/static/Profile";
-import About from "./components/navigation/about";
 import Navbar from "./components/navigation/Navbar";
 import {BrowserRouter as Router,Route,Switch } from 'react-router-dom'
 import Session from "./components/sessions/Session"
@@ -33,6 +32,8 @@ function App() {
   useEffect(() => {
     getCurrentUser(handleCurrentUser)
   }, [])
+ 
+    
 
   return (
     <>  
@@ -41,10 +42,11 @@ function App() {
       
         <Switch>
           <Route exact path="/" render ={props => <Home loggedIn={loggedIn}/>} />
-          <Route exact path="/new" component={ NewPet } />
-          <Route exact path="/me" render ={ props =>  <Profile {...props} currentUser = {currentUser} loading={loading} setLoading={setLoading}/> } />
+          <Route exact path="/new"  render ={props => <NewPet currentUser = {currentUser} />} />
+          <Route exact path="/me" render ={ props =>  <Profile {...props} currentUser = {currentUser} loading={loading} setLoading={setLoading} setCurrentUser={setCurrentUser}/> } />
           <Route exact path="/signup" render ={ props =>  <Session {...props} handleCurrentUser = { handleCurrentUser }/> } />
           <Route exact path="/login" render ={ props =>  <Session {...props} handleCurrentUser = { handleCurrentUser }/> } />
+          <Router render={ () => <h1>Bad route</h1> } />
             </Switch>
           </Router>
     
