@@ -12,9 +12,11 @@ export const createUserAccount = async (user,handleCurrentUser)=>{
     const data =  await resp.json()
     if (resp.ok){
         handleCurrentUser(data)
+        return resp
     }else {
         console.log(data.errors)
         alert(`${data.errors} , please login instead`)
+        return resp
     }
 } 
 export const login = async (user,handleCurrentUser)=>{

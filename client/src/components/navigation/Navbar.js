@@ -1,7 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
-import icons from '../icons/icons'
 import { logout } from '../auth/auth'
 const Navbar = ({loggedIn,logoutCurrentUser}) => {
   const history = useHistory()
@@ -12,7 +11,7 @@ const Navbar = ({loggedIn,logoutCurrentUser}) => {
     return  loggedIn ?
           <ul className='flex items-center justify-evenly'>
               <li><Link to="/">Home</Link></li>
-              <li><Link to="/new">add pet</Link></li>
+              <li><Link to="/pet/new">add pet</Link></li>
               <li> <Link to='/me'>profile</Link></li>
               <li><Link to="/logout" onClick={ (e) =>  handleLogout(e)}>Logout</Link></li>
           </ul>:

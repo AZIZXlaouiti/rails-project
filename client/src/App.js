@@ -7,6 +7,7 @@ import Navbar from "./components/navigation/Navbar";
 import {BrowserRouter as Router,Route,Switch } from 'react-router-dom'
 import Session from "./components/sessions/Session"
 import NewPet from "./components/pets/NewPet";
+import EditPet from "./components/pets/EditPet";
 function App() {
   
   
@@ -42,7 +43,8 @@ function App() {
       
         <Switch>
           <Route exact path="/" render ={props => <Home loggedIn={loggedIn}/>} />
-          <Route exact path="/new"  render ={props => <NewPet currentUser = {currentUser} />} />
+          <Route exact path="/pet/new"  render ={props => <NewPet {...props} currentUser = {currentUser} setCurrentUser={setCurrentUser} />} />
+          <Route exact path='/pet/edit/:id'render = {props => <EditPet {...props} currentUser={currentUser} setCurrentUser={setCurrentUser}/>}/>
           <Route exact path="/me" render ={ props =>  <Profile {...props} currentUser = {currentUser} loading={loading} setLoading={setLoading} setCurrentUser={setCurrentUser}/> } />
           <Route exact path="/signup" render ={ props =>  <Session {...props} handleCurrentUser = { handleCurrentUser }/> } />
           <Route exact path="/login" render ={ props =>  <Session {...props} handleCurrentUser = { handleCurrentUser }/> } />

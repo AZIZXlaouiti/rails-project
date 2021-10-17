@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-const NewPet = ({currentUser}) => {
+const NewPet = ({currentUser, setCurrentUser,history}) => {
      const [form ,  setForm ] = useState({
       name:'',
       breed:'',
@@ -37,9 +37,15 @@ const NewPet = ({currentUser}) => {
       }
        fetch(`/users/${currentUser.id}/pets`,option)
        .then(resp=>resp.json())
-       .then(data => console.log(data))
+       .then((data)=>{
+         setCurrentUser({...currentUser,pets:[...currentUser.pets,data]})
+         history.push('/me')
+       
+        }
+         )
      }
      console.log('form',form)
+     console.log('currentUser',currentUser)
     return (
         <>
         <h3>please choose </h3>
@@ -59,12 +65,16 @@ const NewPet = ({currentUser}) => {
         </div>
       
         <div>
-          <label htmlFor="length"> needs :</label>
-          <input type="text" id="length" name="needs" value={form.value} onChange={handleChange}  required/>
+          <label htmlFor="needs"> needs :</label>
+          <input type="text" id="needs" name="needs" value={form.value} onChange={handleChange}  required/>
+        </div>
+        <div>
+          <label htmlFor="characteristic"> characteristic :</label>
+          <input type="text" id="characteristic" name="characteristic" value={form.value} onChange={handleChange}  required/>
         </div>
         <label htmlFor="breed">Choose a breed:</label>
         <select id='breed' name="breed" value={form.breed}  onChange={handleChange} required>
-        { form.type === 'cat'?
+        { form.pet_type === 'cat'?
           <>
                 <option value="">None</option> 
                 <option value="Scottish Fold">Scottish Fold</option>

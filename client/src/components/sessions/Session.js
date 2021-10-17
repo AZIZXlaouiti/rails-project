@@ -18,7 +18,10 @@ const Session = ({match,handleCurrentUser}) => {
     const handleSubmit = async(e) =>{
         e.preventDefault()
         if (match.path === '/signup'){
-            createUserAccount(state,handleCurrentUser)
+           let check = await createUserAccount(state,handleCurrentUser)
+            if (check.ok){
+                history.push('/me')
+            }
         }else {
             let check = await login(state,handleCurrentUser)
             if (check.ok){

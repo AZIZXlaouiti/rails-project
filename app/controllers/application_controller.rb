@@ -5,9 +5,9 @@ class ApplicationController < ActionController::API
      !!session[:user_id]
   end
   def find_current_user
-    User.find_by_id(session[:user_id])
+   @user =  User.find_by_id(session[:user_id])
   end
   def find_pet 
-      @user = User.find_by_id(params[:user_id])
+    @pet = Pet.find_by_id(params[:id])
   end
 end

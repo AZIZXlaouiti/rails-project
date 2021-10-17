@@ -6,13 +6,13 @@ class PetsController < ApplicationController
   end
 
   def show
-    @pet = Pet.find_by_id(params[:id])
+    find_pet
     render json: @pet ,status: :ok 
   end
 
   
   def destroy
-    @pet = Pet.find_by_id(params[:id])
+    find_pet
     if @pet 
        @pet.destroy 
        render json: ['pet succesfully deleted'] ,status: :ok
@@ -22,7 +22,7 @@ class PetsController < ApplicationController
   end
 
   def create
-    find_pet
+    find_current_user
     @pet = @user.pets.new(pet_params)
     if @pet.save  
        render json: @pet ,status: :created 
@@ -32,7 +32,7 @@ class PetsController < ApplicationController
   end
 
   def update
-    @pet = Pet.find_by_id(params[:id])
+    find_pet
     if @pet.update(pet_params)
       render json: @pet, status: :ok
     else 
