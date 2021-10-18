@@ -27,7 +27,7 @@ class PetsController < ApplicationController
     if @pet.save  
        render json: @pet ,status: :created 
     else 
-        render json: {errors: @pet.errors.full_messages } ,status: :unprocessable_entity
+        render json: {errors:  ['this name is taken'] } ,status: :unprocessable_entity
     end
   end
 
@@ -39,12 +39,17 @@ class PetsController < ApplicationController
       render json: { errors: @pet.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  def top_3_pets
+      render json: Pet.top_3_pet ,status: :ok
+  end
 
   private 
 
   def pet_params
     params.permit(
       :name ,
+      :breed ,
+      :pet_type,
       :gender,
       :characteristic,
       :needs

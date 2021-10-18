@@ -15,7 +15,7 @@ export const createUserAccount = async (user,handleCurrentUser)=>{
         return resp
     }else {
         console.log(data.errors)
-        alert(`${data.errors} , please login instead`)
+        alert(`${data.errors} `)
         return resp
     }
 } 

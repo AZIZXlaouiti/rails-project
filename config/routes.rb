@@ -7,9 +7,8 @@ Rails.application.routes.draw do
 end
 get '/user/followers' , to: 'users#get_followers'
 
-  # get '/users/:user_id/pets' , to: 'users#get_all_pets'
-  # get'/cats/female', to: 'cats#get_females'
-
+ 
+get '/top-3-pets' , to: 'pets#top_3_pets'
   delete '/logout', to: 'sessions#destroy'
   post'/login' , to: 'sessions#create'
   post '/signup' , to: 'users#create'

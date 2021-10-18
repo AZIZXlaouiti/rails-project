@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 const Profile = ({currentUser , setLoading, loading ,setCurrentUser ,history}) => {
   
-   console.log(currentUser,'currentUser')
   
    
    const handleClick = async(id) =>{
@@ -36,7 +35,7 @@ const Profile = ({currentUser , setLoading, loading ,setCurrentUser ,history}) =
         <h1> user Profile</h1>
        <p> UserName  = {currentUser.name}</p>
        <h1>--pets--</h1>
-
+       
        {currentUser.pets.map((e)=><ul key={e.id}><h2>{`--${e.name}--`}<Link to={`/pet/edit/${e.id}`}><button>Edit</button></Link><button onClick={()=>handleClick(e.id)}>X</button></h2><li className='font-bold'>Breed : { e.breed}</li ><li className='font-bold'>characteristic : {e.characteristic}</li><li>needs : {e.needs}</li><li>type : {e.pet_type}</li><li>gender : {e.gender}</li></ul>)}
       
        </div>

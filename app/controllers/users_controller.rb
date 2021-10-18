@@ -3,9 +3,10 @@ class UsersController < ApplicationController
         
        @user = User.new(user_params)
        if @user.save 
+          login_user
           render json: @user , status: :created 
        else 
-           render json: {errors: ['this user already exist']}, status: :unprocessable_entity
+           render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
        end
     end
     def get_current_user

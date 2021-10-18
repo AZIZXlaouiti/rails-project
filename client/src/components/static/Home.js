@@ -3,6 +3,7 @@ const Home = ({loggedIn}) => {
     const [follower , setFollower] = useState([]) 
     const [search , setSearch ] = useState('')
     const [filter , setFilter] = useState(follower)
+    const [option , setOption ] = useState(false)
     useEffect(()=>{
       fetch('/user/followers')
       .then(resp=>resp.json())
@@ -11,7 +12,7 @@ const Home = ({loggedIn}) => {
         setFilter(data)
       })
       
-      
+      console.log('run once')
     },[loggedIn])
     const handleSearch = (event)=>{
       setSearch(event.target.value)
@@ -19,6 +20,16 @@ const Home = ({loggedIn}) => {
       const result = follower.filter((e)=>e.name.toLowerCase().includes(event.target.value.toLowerCase()))
        setFilter(result)
     }
+    const handleClick = ()=>{
+       fetch('/top-3-pets')
+       .then(resp=> resp.json())
+       .then(data=>{
+         setFilter(data)
+          setOption(true)
+        })
+        
+    }
+
     return (
         <> 
 
@@ -31,24 +42,17 @@ const Home = ({loggedIn}) => {
             
             <input type='text'placeholder='search...' value={search} onChange={handleSearch}/>
             <input type='submit'/>
+            <button onClick={()=>handleClick()}>filter top3 pets </button>
        
-       {filter.map((e)=>
-       <>
-        <p key={e.id}>------OWNER------{e.name}--------------</p>
-        <>{e.pets.map((e)=><ul key={e.id}>
-           <h2>{`--${e.name}--`}</h2>
-           
-           <li className='font-bold'>Breed : { e.breed}</li>
-           <li className='font-bold'>characteristic : {e.characteristic}</li>
-           <li>needs : {e.needs}</li>
-           <li>type : {e.pet_type}</li>
-          <li>gender : {e.gender}</li>
-        </ul>)}</>
-        </>
-       )}
+         <ul>{filter.map((e)=><li>{e.name}</li>)}</ul>
+         
+     
+         
+         </>
+       
+    
        
 
-       </>
     )
 }
 

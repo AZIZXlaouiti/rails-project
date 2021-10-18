@@ -40,7 +40,7 @@ const NewPet = ({currentUser, setCurrentUser,history}) => {
        .then((data)=>{
          setCurrentUser({...currentUser,pets:[...currentUser.pets,data]})
          history.push('/me')
-       
+     
         }
          )
      }
@@ -61,16 +61,16 @@ const NewPet = ({currentUser, setCurrentUser,history}) => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name : </label>
-          <input type="text" id="name" name="name" value={form.value} onChange={handleChange} required/>
+          <input type="text" id="name" name="name" value={form.name} onChange={handleChange} required/>
         </div>
       
         <div>
           <label htmlFor="needs"> needs :</label>
-          <input type="text" id="needs" name="needs" value={form.value} onChange={handleChange}  required/>
+          <input type="text" id="needs" name="needs" value={form.needs} onChange={handleChange}  required/>
         </div>
         <div>
           <label htmlFor="characteristic"> characteristic :</label>
-          <input type="text" id="characteristic" name="characteristic" value={form.value} onChange={handleChange}  required/>
+          <input type="text" id="characteristic" name="characteristic" value={form.characteristic} onChange={handleChange}  required/>
         </div>
         <label htmlFor="breed">Choose a breed:</label>
         <select id='breed' name="breed" value={form.breed}  onChange={handleChange} required>
