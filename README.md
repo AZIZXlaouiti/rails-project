@@ -1,5 +1,5 @@
-# Project Template: React/Rails API
-
+# Project : React/Rails API
+## pet's social media
 ## Description
 pet application that lets users connect with each owners and view their profile 
 - added the feature to login/signup 
